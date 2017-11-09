@@ -45,13 +45,14 @@ export default {
     }
   },
   beforeCreate:function () {
-
+      //此处可以在加载loading等
   },
   created:function () {
     let $that = this;
-    if(this.status){//判断是否已登录
-      console.log('您已登录，请求用户数据...');
-      this.getUserData($that.userInfo.loginname);
+    if(this.status){
+      if(JSON.stringify($that.userData) === '{}'){
+        this.getUserData($that.userInfo.loginname);
+      }
     }else {
       console.log('您还未登录');
     }

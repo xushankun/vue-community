@@ -10,7 +10,7 @@ const state = {
   // 用户登录状态
   loginStatus: JSON.parse(localStorage.getItem('loginStatus')) || false,
   // 用户登录状态
-  userData: []
+  userData: {}
 };
 
 
