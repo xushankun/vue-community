@@ -24,4 +24,4 @@ new Vue({
   store,  //全局使用store
   template: '<App/>',
   components: { App }
-})
+});
