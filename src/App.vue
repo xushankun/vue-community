@@ -42,4 +42,10 @@ export default {
   -webkit-overflow-scrolling: touch;
   user-select: none;
 }
+@media (min-width: 480px){
+  .mu-appbar {
+    height: 56px;
+    line-height: 56px;
+  }
+}
 </style>

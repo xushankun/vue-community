@@ -8,6 +8,8 @@ import myV from '../pages/myV.vue'
 
 Vue.use(Router);
 
+
+
 export default new Router({
   // mode:'history',
   routes: [
