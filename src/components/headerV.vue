@@ -1,6 +1,6 @@
 <template>
   <div class="headerV">
-    <mu-appbar :title="barTit+'('+status+')'">
+    <mu-appbar :title="barTit">
       <mu-icon-button icon="menu" slot="left" @click="openForm(true)"/>
       <mu-icon-menu icon="more_vert" slot="right">
         <mu-menu-item title="设置"/>
@@ -26,15 +26,11 @@
       signOutF:function () {
         this.signOut();
       },
+      //打开loginForm
       openForm (status) {
         this.openLoginForm(status);
       }
-    },
-    computed: {
-      status () {
-        return this.$store.state.user.loginStatus
-      }
-    },
+    }
   }
 </script>
 

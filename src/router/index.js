@@ -9,6 +9,7 @@ import myV from '../pages/myV.vue'
 Vue.use(Router);
 
 export default new Router({
+  // mode:'history',
   routes: [
     { path:'/home', name: 'home', component:homeV },
     { path:'/release', name: 'release', component: releaseV },
@@ -16,4 +17,11 @@ export default new Router({
     { path:'/my', name: 'my', component: myV },
     { path:'/',redirect:'/my' },    //重定向路由到"./my"
   ]
+  // scrollBehavior (to, from, savedPosition) {
+  //   if (savedPosition) {
+  //     return savedPosition
+  //   } else {
+  //     return { x: 0, y: 0 }
+  //   }
+  // }
 })

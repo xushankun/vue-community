@@ -1,6 +1,6 @@
 <template>
   <div class="myV">
-    <div v-if="status">
+    <div v-if="isLogin">
       <mu-list>
         <mu-sub-header>主页</mu-sub-header>
         <mu-list-item :title="userData.loginname" :describeText="userData.score+'积分'">
@@ -35,30 +35,30 @@ export default {
   name: 'myV',
   data () {
     return {
-      isLogin:null
+
     }
   },
   methods:{
     ...mapActions({ openLoginForm: 'openLoginForm' ,getUserData:'getUserData'}),
     openForm (status) {
       this.openLoginForm(status);
+    },
+    loadUserData:function () {
+      let $that = this;
+      if(this.isLogin){
+        if(JSON.stringify($that.userData) === '{}'){
+          this.getUserData($that.userInfo.loginname);
+        }
+      }else {
+        console.log('您还未登录');
+      }
     }
-  },
-  beforeCreate:function () {
-      //此处可以在加载loading等
   },
   created:function () {
-    let $that = this;
-    if(this.status){
-      if(JSON.stringify($that.userData) === '{}'){
-        this.getUserData($that.userInfo.loginname);
-      }
-    }else {
-      console.log('您还未登录');
-    }
+    this.loadUserData();
   },
   computed: {
-    status () {
+    isLogin () {
       return this.$store.state.user.loginStatus
     },
     userInfo () {
@@ -72,6 +72,9 @@ export default {
 </script>
 
 <style>
+  .myV{
+    position: relative;
+  }
   .sign-block{
     margin: 15px 0 0 15px;
   }

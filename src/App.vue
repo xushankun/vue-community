@@ -38,5 +38,8 @@ export default {
   width: 100%;
   height: calc(100% - 112px);
   overflow-y: scroll;
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+  user-select: none;
 }
 </style>

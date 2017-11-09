@@ -1,7 +1,7 @@
 <template>
   <div>
     <mu-popup position="left" popupClass="demo-popup-left" :open="leftPopup" @close="openForm(!leftPopup)">
-      <div class="show-form" v-if="status">
+      <div class="show-form" v-if="isLogin">
         <mu-card>
           <mu-card-header :title="userInfo.loginname" subTitle="sub title">
             <mu-avatar :src="userInfo.avatar_url" slot="avatar"/>
@@ -58,9 +58,8 @@
         };
         this.api.signInReq(params).then((res) => {
           $that.openForm(false);
-          console.log(res);
           $that.signIn(res.data);
-          $that.getUserData('shankun');
+          $that.getUserData($that.userInfo.loginname);
           $that.showSnackbar();
         }).catch((err) => {
           console.log(err)
@@ -71,7 +70,7 @@
       leftPopup () {
         return this.$store.state.layout.leftPopup
       },
-      status () {
+      isLogin () {
         return this.$store.state.user.loginStatus
       },
       userInfo () {

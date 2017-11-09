@@ -9,7 +9,7 @@ const state = {
   userInfo: JSON.parse(localStorage.getItem('userInfo')) || {},
   // 用户登录状态
   loginStatus: JSON.parse(localStorage.getItem('loginStatus')) || false,
-  // 用户登录状态
+  // 用户数据
   userData: {}
 };
 
@@ -36,7 +36,6 @@ const actions = {
       userName:username
     };
     API.getUserData(params).then((res) => {
-      console.log(res.data.data);
       commit(types.SET_USER_DATA, res.data.data)
     }).catch((err) => {
       console.log(err)
