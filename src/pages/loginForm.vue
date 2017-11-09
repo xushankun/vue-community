@@ -1,0 +1,109 @@
+<template>
+  <div>
+    <mu-popup position="left" popupClass="demo-popup-left" :open="leftPopup" @close="openForm(!leftPopup)">
+      <div class="show-form" v-if="status">
+        <mu-card>
+          <mu-card-header :title="userInfo.loginname" subTitle="sub title">
+            <mu-avatar :src="userInfo.avatar_url" slot="avatar"/>
+          </mu-card-header>
+          <mu-card-title title="Content Title" subTitle="Content Title"/>
+          <mu-card-text>
+            散落在指尖的阳光，我试着轻轻抓住光影的踪迹，它却在眉宇间投下一片淡淡的阴影。
+            调皮的阳光掀动了四月的心帘，温暖如约的歌声渐起。
+            似乎在诉说着，我也可以在漆黑的角落里，找到阴影背后的阳光，
+          </mu-card-text>
+        </mu-card>
+      </div>
+      <div class="login-form" v-else>
+        <mu-list>
+          <mu-text-field label="Access Token" :value="accessT" labelFloat/>
+          <mu-raised-button label="Sign In" @click="loginF" primary/>
+          <mu-raised-button label="Close" @click="openForm(!leftPopup)"/>
+        </mu-list>
+      </div>
+    </mu-popup>
+    <!--toast-->
+    <mu-snackbar v-if="snackbar" message="登录成功！" action="关闭" @actionClick="hideSnackbar" @close="hideSnackbar"/>
+  </div>
+</template>
+
+<script>
+  import { mapActions } from 'vuex'
+  export default {
+    data () {
+      return {
+        snackbar: false,  //提示默认隐藏
+        accessT: '1d941586-8a95-4f45-8b8b-44507ab3977b' //登录需要的Access Token
+      }
+    },
+    methods: {
+      ...mapActions({ openLoginForm: 'openLoginForm',signIn: 'signIn' ,getUserData:'getUserData'}),
+      openForm (status) {
+        this.openLoginForm(status);
+      },
+      showSnackbar () {
+        this.snackbar = true;
+        if (this.snackTimer) clearTimeout(this.snackTimer);
+        this.snackTimer = setTimeout(() => { this.snackbar = false }, 2000)
+      },
+      hideSnackbar () {
+        this.snackbar = false;
+        if (this.snackTimer) clearTimeout(this.snackTimer)
+      },
+      loginF:function () {
+        //登录请求
+        let $that = this;
+        let params = {
+          accesstoken: $that.accessT
+        };
+        this.api.signInReq(params).then((res) => {
+          $that.openForm(false);
+          console.log(res);
+          $that.signIn(res.data);
+          $that.getUserData('shankun');
+          $that.showSnackbar();
+        }).catch((err) => {
+          console.log(err)
+        });
+      }
+    },
+    computed: {
+      leftPopup () {
+        return this.$store.state.layout.leftPopup
+      },
+      status () {
+        return this.$store.state.user.loginStatus
+      },
+      userInfo () {
+        return this.$store.state.user.userInfo
+      }
+    },
+  }
+</script>
+
+<style lang="css">
+  .show-form .mu-card{
+    padding-top: 20px;
+  }
+  .login-form{
+    width: 100%;
+    margin-top: 50px;
+    padding: 0 15px;
+  }
+  .demo-popup-top {
+    width: 100%;
+    opacity: .8;
+    height: 48px;
+    line-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 375px;
+  }
+  .demo-popup-left {
+    display: flex;
+    width: 85%;
+    max-width: 375px;
+    height: 100%;
+  }
+</style>
