@@ -1,4 +1,4 @@
-# ele-ui-demo
+# vue-community
 
 > A Vue.js project
 
