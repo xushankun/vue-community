@@ -1,5 +1,6 @@
 <template>
   <div class="myV">
+    <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="refresh"/>
     <div v-if="isLogin">
       <mu-list>
         <mu-sub-header>主页</mu-sub-header>
@@ -35,11 +36,20 @@ export default {
   name: 'myV',
   data () {
     return {
-
+      refreshing: false,
+      trigger: null
     }
   },
   methods:{
     ...mapActions({ openLoginForm: 'openLoginForm' ,getUserData:'getUserData'}),
+    refresh () {
+      let $that = this;
+      this.refreshing = true;
+      this.getUserData($that.userInfo.loginname);//下拉请求
+      setTimeout(() => {
+        this.refreshing = false
+      }, 2000)
+    },
     openForm (status) {
       this.openLoginForm(status);
     },
@@ -56,6 +66,9 @@ export default {
   },
   created:function () {
     this.loadUserData();
+  },
+  mounted () {
+    this.trigger = this.$el
   },
   computed: {
     isLogin () {
