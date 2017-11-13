@@ -23,7 +23,7 @@
       </div>
     </mu-popup>
     <!--toast-->
-    <mu-snackbar v-if="snackbar" message="登录成功！" action="关闭" @actionClick="hideSnackbar" @close="hideSnackbar"/>
+    <snackbar :msgObj="msgObj"></snackbar>
   </div>
 </template>
 
@@ -32,7 +32,10 @@
   export default {
     data () {
       return {
-        snackbar: false,  //提示默认隐藏
+        msgObj:{
+          tipsText: null,
+          isShow: false
+        },
         accessT: '1d941586-8a95-4f45-8b8b-44507ab3977b' //登录需要的Access Token
       }
     },
@@ -40,15 +43,6 @@
       ...mapActions({ openLoginForm: 'openLoginForm',signIn: 'signIn' ,getUserData:'getUserData'}),
       openForm (status) {
         this.openLoginForm(status);
-      },
-      showSnackbar () {
-        this.snackbar = true;
-        if (this.snackTimer) clearTimeout(this.snackTimer);
-        this.snackTimer = setTimeout(() => { this.snackbar = false }, 2000)
-      },
-      hideSnackbar () {
-        this.snackbar = false;
-        if (this.snackTimer) clearTimeout(this.snackTimer)
       },
       loginF:function () {
         //登录请求
@@ -60,7 +54,7 @@
           $that.openForm(false);
           $that.signIn(res.data);
           $that.getUserData($that.userInfo.loginname);
-          $that.showSnackbar();
+          this.showSnackbar('登录成功！');
         }).catch((err) => {
           console.log(err)
         });

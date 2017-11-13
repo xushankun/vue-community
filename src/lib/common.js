@@ -9,8 +9,11 @@
 export default{
   install(Vue,options){
     Vue.prototype.baseUrl= 'http://www.baidu.com' ; //可以自定义变量
-    Vue.prototype.test = function () {
-      console.log('test函数')
+    Vue.prototype.showSnackbar = function ($val) {
+      this.msgObj.tipsText = $val;
+      this.msgObj.isShow = true;
+      if (this.snackTimer) clearTimeout(this.snackTimer);
+      this.snackTimer = setTimeout(() => { this.msgObj.isShow = false }, 2000)
     }
   }
 }

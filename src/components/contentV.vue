@@ -3,7 +3,9 @@
     <!--<router-view name="home"></router-view>-->
     <!--<router-view name="release"></router-view>-->
     <!--<router-view name="message"></router-view>-->
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 

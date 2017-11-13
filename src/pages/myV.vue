@@ -1,7 +1,7 @@
 <template>
   <div class="myV">
-    <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="refresh"/>
     <div v-if="isLogin">
+      <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="refresh"/>
       <mu-list>
         <mu-sub-header>主页</mu-sub-header>
         <mu-list-item :title="userData.loginname" :describeText="userData.score+'积分'">
@@ -56,16 +56,18 @@ export default {
     loadUserData:function () {
       let $that = this;
       if(this.isLogin){
-        if(JSON.stringify($that.userData) === '{}'){
-          this.getUserData($that.userInfo.loginname);
-        }
+        this.getUserData($that.userInfo.loginname);
       }else {
         console.log('您还未登录');
       }
     }
   },
+  //keep-alive下我只能被执行一次
   created:function () {
     this.loadUserData();
+  },
+  activated:function () {
+    console.log('activated');
   },
   mounted () {
     this.trigger = this.$el
