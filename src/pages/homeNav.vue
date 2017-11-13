@@ -38,6 +38,9 @@
     },
     created:function () {
       this.getList();
+      this.vStatus.$on('pRefresh',function () {
+        this.getList();
+      }.bind(this))
     },
   }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="list-V">
+    <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="refresh"/>
     <mu-list>
-      <div>{{newListData}}</div>
       <div v-for="(item,index) in newListData">
         <mu-list-item :title="item.author.loginname" :afterText="item.tab" :describeLine="2" @click="details(index)">
           <mu-avatar :src="item.author.avatar_url" slot="leftAvatar"/>
@@ -21,11 +21,23 @@
     name: 'list-V',
     data () {
       return {
-
+        refreshing: false,
+        trigger: null
       }
     },
     methods: {
-
+      refresh () {
+        let $that = this;
+        this.refreshing = true;
+        this.vStatus.$emit('pRefresh');
+//        this.getUserData($that.userInfo.loginname);//下拉请求
+        setTimeout(() => {
+          this.refreshing = false
+        }, 2000)
+      },
+    },
+    mounted () {
+      this.trigger = this.$el
     },
     computed: {
       newListData () {

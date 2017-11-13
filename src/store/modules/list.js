@@ -13,8 +13,6 @@ const actions = {
   //获取列表
   getListData({ commit }, params) {
     API.getList(params).then((res) => {
-      console.log(params);
-      console.log(res.data.data);
       commit(types.GET_LIST, res.data.data)
     }).catch((err) => {
       console.log(err)
@@ -32,8 +30,7 @@ const getters = {
 //调用mutations是唯一允许更新应用状态的地方
 const mutations = {
   [types.GET_LIST](state, res) {
-    console.log(res);
-    state.userData = res
+    state.listData = res
   }
 };
 export default {
