@@ -15,4 +15,9 @@ export default {
     // config.params = param;
     return axios.get('/user/'+param.userName,config);
   },
+  // 获取列表
+  getList:function (param) {
+    config.params = param;
+    return axios.get('/topics',config);
+  },
 }

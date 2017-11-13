@@ -1,5 +1,5 @@
 <template>
-  <div class="headerV" v-once>
+  <div class="headerV">
     <mu-appbar :title="barTit">
       <mu-icon-button icon="menu" slot="left" @click="openForm(true)"/>
       <mu-icon-menu icon="more_vert" slot="right">

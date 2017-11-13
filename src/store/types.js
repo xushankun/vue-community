@@ -8,3 +8,6 @@ export const SET_USER_DATA   = 'SET_USER_DATA' //设置用户数据
 //布局状态
 export const SET_LAYOUT_FORM = 'SET_LAYOUT_FORM'  //设置表单布局状态
 
+//用户列表
+export const GET_LIST = 'GET_LIST'  //设置表单布局状态
+

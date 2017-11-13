@@ -1,0 +1,40 @@
+<template>
+  <div class="list-V">
+    <mu-list>
+      <div>{{newListData}}</div>
+      <div v-for="(item,index) in newListData">
+        <mu-list-item :title="item.author.loginname" :afterText="item.tab" :describeLine="2" @click="details(index)">
+          <mu-avatar :src="item.author.avatar_url" slot="leftAvatar"/>
+          <span slot="describe">
+          <span style="color: rgba(0, 0, 0, .87)">{{item.title}}</span>
+          </span>
+          <span style="display:inherit;width: 100%;color: #999;margin-top: 10px">{{item.last_reply_at}}</span>
+        </mu-list-item>
+        <mu-divider inset/>
+      </div>
+    </mu-list>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: 'list-V',
+    data () {
+      return {
+
+      }
+    },
+    methods: {
+
+    },
+    computed: {
+      newListData () {
+        return this.$store.state.list.listData;
+      }
+    }
+  }
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style>
+</style>

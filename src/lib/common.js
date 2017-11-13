@@ -8,7 +8,8 @@
 
 export default{
   install(Vue,options){
-    Vue.prototype.baseUrl= 'http://www.baidu.com' ; //可以自定义变量
+    //可以自定义变量
+    Vue.prototype.vStatus = new Vue();//用于非父子组件通信
     Vue.prototype.showSnackbar = function ($val) {
       this.msgObj.tipsText = $val;
       this.msgObj.isShow = true;
