@@ -16,7 +16,7 @@
       </div>
       <div class="login-form" v-else>
         <mu-list>
-          <mu-text-field label="Access Token" :value="accessT" labelFloat/>
+          <mu-text-field label="Access Token" v-model="accessT" :value="accessT" labelFloat/>
           <mu-raised-button label="Sign In" @click="loginF" primary/>
           <mu-raised-button label="Close" @click="openForm(!leftPopup)"/>
         </mu-list>
@@ -47,17 +47,22 @@
       loginF:function () {
         //登录请求
         let $that = this;
-        let params = {
-          accesstoken: $that.accessT
-        };
-        this.api.signInReq(params).then((res) => {
-          $that.openForm(false);
-          $that.signIn(res.data);
-          $that.getUserData($that.userInfo.loginname);
-          this.showSnackbar('登录成功！');
-        }).catch((err) => {
-          console.log(err)
-        });
+        console.log($that.accessT);
+        if($that.accessT){
+          let params = {
+            accesstoken: $that.accessT
+          };
+          this.api.signInReq(params).then((res) => {
+            $that.openForm(false);
+            $that.signIn(res.data);
+            $that.getUserData($that.userInfo.loginname);
+            this.showSnackbar('登录成功！');
+          }).catch((err) => {
+            console.log(err)
+          });
+        }else {
+          this.showSnackbar('不能为空！');
+        }
       }
     },
     computed: {

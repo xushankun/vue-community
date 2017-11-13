@@ -13,7 +13,7 @@ export default{
       this.msgObj.tipsText = $val;
       this.msgObj.isShow = true;
       if (this.snackTimer) clearTimeout(this.snackTimer);
-      this.snackTimer = setTimeout(() => { this.msgObj.isShow = false }, 2000)
+      this.snackTimer = setTimeout(() => { this.msgObj.isShow = false }, 1000)
     }
   }
 }
