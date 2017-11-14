@@ -2,7 +2,7 @@
   <div class="footerV">
     <mu-paper>
       <mu-bottom-nav :value="bottomNav" shift>
-        <mu-bottom-nav-item to="/home" value="home" title="首页" icon="home"/>
+        <mu-bottom-nav-item to="/" value="home" title="首页" icon="home"/>
         <mu-bottom-nav-item to="/release" value="release" title="发布" icon="edit"/>
         <mu-bottom-nav-item to="/message" value="message" title="消息" icon="message"/>
         <mu-bottom-nav-item to="/my" value="my" title="我的" icon="person"/>
