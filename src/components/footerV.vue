@@ -22,7 +22,7 @@
     },
     created:function () {
       if (this.$route.matched.some(record => record.meta.tabAuth)) {
-        this.bottomNav = this.$route.name;
+        this.bottomNav = this.$route.matched[0].name;
       }
     },
     methods: {
@@ -31,11 +31,7 @@
     watch:{
       '$route' (to, from) {
         if (to.matched.some(record => record.meta.tabAuth)) {
-          this.bottomNav = to.name;//用路由来监听tab【推荐】
-          if(to.path.indexOf('home') > 0){
-            console.log(to.path);
-            this.bottomNav = 'home';
-          }
+          this.bottomNav = to.matched[0].name;//用路由来监听tab【推荐】,matched[0]为一级路由字段
         }
       }
     }

@@ -18,7 +18,7 @@
     data () {
       return {
         activeTab: 'all',
-        tagRoute:''
+        tagRoute:'/home/all'
       }
     },
     methods: {
@@ -36,6 +36,7 @@
     created:function () {
       if (this.$route.matched.some(record => record.meta.listAuth)) {
         this.activeTab = this.$route.params[0];//初始化路由参数用于同步请求tab
+        this.$router.push({ path: `${this.tagRoute}` })
       }
       this.getList();
       this.vStatus.$on('startRefresh',function () { //接收list组件的下拉刷新事件并回调
@@ -48,21 +49,16 @@
         if (to.matched.some(record => record.meta.listAuth)) {
           this.activeTab = to.params[0];
           this.getList();
-        }
-        //离开home时，存储路由
-        if(from.params[0] === 'undefined' ){
-           this.tagRoute = from.params[0];
-           console.log(this.tagRoute);
+          this.tagRoute = to.path;//存储离开的路由
         }
         //进入home时，回到离开时的路由
-        if(to.name === 'home' && this.tagRoute !== ''){
-          this.$router.push({ path: `/home/${this.tagRoute}` })
+        if(to.name === 'home'){
+          this.$router.push({ path: `${this.tagRoute}` })
         }
       }
     }
   }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 </style>
