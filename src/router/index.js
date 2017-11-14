@@ -32,7 +32,7 @@ export default new Router({
     },
     { path:'/message', name: 'message', component: messageV },
     { path:'/my', name: 'my', component: myV },
-    { path:'/',redirect:'/my' },    //重定向路由到"./my"
+    { path:'/',redirect:'/home' },    //重定向路由到"./my"
   ],
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {

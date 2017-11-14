@@ -5,7 +5,7 @@
         <mu-bottom-nav-item to="/home" value="home" title="首页" icon="home"/>
         <mu-bottom-nav-item to="/release" value="release" title="发布" icon="edit"/>
         <mu-bottom-nav-item to="/message" value="message" title="消息" icon="message"/>
-        <mu-bottom-nav-item to="/" value="my" title="我的" icon="person"/>
+        <mu-bottom-nav-item to="/my" value="my" title="我的" icon="person"/>
       </mu-bottom-nav>
     </mu-paper>
   </div>

@@ -50,8 +50,9 @@
           this.getList();
         }
         //离开home时，存储路由
-        if(from.path.indexOf('home') > 0){
+        if(from.params[0] === 'undefined' ){
            this.tagRoute = from.params[0];
+           console.log(this.tagRoute);
         }
         //进入home时，回到离开时的路由
         if(to.name === 'home' && this.tagRoute !== ''){
