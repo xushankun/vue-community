@@ -1,7 +1,6 @@
 <template>
   <div class="myV">
     <div v-if="isLogin">
-      <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="refresh"/>
       <mu-list>
         <mu-sub-header>主页</mu-sub-header>
         <mu-list-item :title="userData.loginname" :describeText="userData.score+'积分'">
@@ -36,20 +35,10 @@ export default {
   name: 'myV',
   data () {
     return {
-      refreshing: false,
-      trigger: null
     }
   },
   methods:{
     ...mapActions({ openLoginForm: 'openLoginForm' ,getUserData:'getUserData'}),
-    refresh () {
-      let $that = this;
-      this.refreshing = true;
-      this.getUserData($that.userInfo.loginname);//下拉请求
-      setTimeout(() => {
-        this.refreshing = false
-      }, 2000)
-    },
     openForm (status) {
       this.openLoginForm(status);
     },
@@ -65,12 +54,6 @@ export default {
   //keep-alive下我只能被执行一次
   created:function () {
     this.loadUserData();
-  },
-  activated:function () {
-    console.log('activated');
-  },
-  mounted () {
-    this.trigger = this.$el
   },
   computed: {
     isLogin () {

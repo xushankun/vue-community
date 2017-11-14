@@ -1,12 +1,12 @@
 <template>
   <div class="homeNav">
-    <mu-tabs :value="activeTab" @change="handleTabChange" class="tab">
-      <mu-tab value="all" title="全部"/>
-      <mu-tab value="good" title="精华"/>
-      <mu-tab value="weex" title="weex"/>
-      <mu-tab value="share" title="分享"/>
-      <mu-tab value="ask" title="问答"/>
-      <mu-tab value="job" title="招聘"/>
+    <mu-tabs :value="activeTab" class="tab">
+      <mu-tab value="all" to="/home/all" title="全部"/>
+      <mu-tab value="good" to="/home/good" title="精华"/>
+      <mu-tab value="weex" to="/home/weex" title="weex"/>
+      <mu-tab value="share" to="/home/share" title="分享"/>
+      <mu-tab value="ask" to="/home/ask" title="问答"/>
+      <mu-tab value="job" to="/home/job" title="招聘"/>
     </mu-tabs>
   </div>
 </template>
@@ -17,15 +17,12 @@
     name: 'homeNav',
     data () {
       return {
-        activeTab: 'all'
+        activeTab: 'all',
+        tagRoute:''
       }
     },
     methods: {
       ...mapActions({ getListData: 'getListData'}),
-      handleTabChange (val) {
-        this.activeTab = val;
-        this.getList();
-      },
       getList(){
         let $that = this;
         let params = {
@@ -37,11 +34,31 @@
       }
     },
     created:function () {
+      if (this.$route.matched.some(record => record.meta.listAuth)) {
+        this.activeTab = this.$route.params[0];//初始化路由参数用于同步请求tab
+      }
       this.getList();
-      this.vStatus.$on('pRefresh',function () {
+      this.vStatus.$on('startRefresh',function () { //接收list组件的下拉刷新事件并回调
         this.getList();
       }.bind(this))
     },
+    watch: {
+      '$route' (to, from) {
+        // 对路由变化作出响应...
+        if (to.matched.some(record => record.meta.listAuth)) {
+          this.activeTab = to.params[0];
+          this.getList();
+        }
+        //离开home时，存储路由
+        if(from.path.indexOf('home') > 0){
+           this.tagRoute = from.params[0];
+        }
+        //进入home时，回到离开时的路由
+        if(to.name === 'home' && this.tagRoute !== ''){
+          this.$router.push({ path: `/home/${this.tagRoute}` })
+        }
+      }
+    }
   }
 </script>
 

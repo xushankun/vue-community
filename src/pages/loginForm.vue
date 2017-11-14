@@ -47,7 +47,6 @@
       loginF:function () {
         //登录请求
         let $that = this;
-        console.log($that.accessT);
         if($that.accessT){
           let params = {
             accesstoken: $that.accessT
@@ -64,6 +63,11 @@
           this.showSnackbar('不能为空！');
         }
       }
+    },
+    created:function () {
+      this.vStatus.$on('signOut',function ($val) {
+        this.showSnackbar($val);
+      }.bind(this))
     },
     computed: {
       leftPopup () {

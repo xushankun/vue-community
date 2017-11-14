@@ -1,11 +1,11 @@
 <template>
   <div class="contentV">
-    <!--<router-view name="home"></router-view>-->
-    <!--<router-view name="release"></router-view>-->
-    <!--<router-view name="message"></router-view>-->
-    <!--<keep-alive>-->
+    <keep-alive>
+      <!--<router-view name="home"></router-view>-->
+      <!--<router-view name="release"></router-view>-->
+      <!--<router-view name="message"></router-view>-->
       <router-view></router-view>
-    <!--</keep-alive>-->
+    </keep-alive>
   </div>
 </template>
 

@@ -25,6 +25,7 @@
       //退出
       signOutF:function () {
         this.signOut();
+        this.vStatus.$emit('signOut','已退出');
       },
       //打开loginForm
       openForm (status) {

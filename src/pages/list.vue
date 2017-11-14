@@ -27,14 +27,15 @@
     },
     methods: {
       refresh () {
-        let $that = this;
         this.refreshing = true;
-        this.vStatus.$emit('pRefresh');
-//        this.getUserData($that.userInfo.loginname);//下拉请求
+        this.vStatus.$emit('pRefresh');//告诉homeNav组件，下拉事件已发生
         setTimeout(() => {
           this.refreshing = false
-        }, 2000)
+        }, 1000)
       },
+      details($id){
+        console.log($id)
+      }
     },
     mounted () {
       this.trigger = this.$el
