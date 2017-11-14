@@ -17,6 +17,7 @@ export default new Router({
     { path:'/home',
       name: 'home',
       component:homeV ,
+      meta: { tabAuth: true },
       children:[
         {
           path:'*',//home下的所有都指向listV
@@ -28,10 +29,19 @@ export default new Router({
     {
       path:'/release',
       name: 'release',
-      component: releaseV
+      component: releaseV,
+      meta: { tabAuth: true }
     },
-    { path:'/message', name: 'message', component: messageV },
-    { path:'/my', name: 'my', component: myV },
+    { path:'/message',
+      name: 'message',
+      component: messageV,
+      meta: { tabAuth: true }
+    },
+    { path:'/my',
+      name: 'my',
+      component: myV,
+      meta: { tabAuth: true },
+    },
     { path:'/',redirect:'/home' },    //重定向路由到"./my"
   ],
   scrollBehavior (to, from, savedPosition) {
