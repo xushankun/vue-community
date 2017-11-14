@@ -12,7 +12,7 @@ Vue.use(Router);
 
 
 export default new Router({
-  mode:'history',
+  // mode:'history',
   routes: [
     { path:'/home',
       name: 'home',
@@ -43,12 +43,12 @@ export default new Router({
       meta: { tabAuth: true },
     },
     { path:'/',redirect:'/home' },    //重定向
-  ],
-  scrollBehavior (to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition
-    } else {
-      return { x: 0, y: 0 }
-    }
-  }
+  ]
+  // scrollBehavior (to, from, savedPosition) {
+  //   if (savedPosition) {
+  //     return savedPosition
+  //   } else {
+  //     return { x: 0, y: 0 }
+  //   }
+  // }
 })
