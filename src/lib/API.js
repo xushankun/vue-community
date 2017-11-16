@@ -15,6 +15,13 @@ export default {
     // config.params = param;
     return axios.get('/user/'+param.userName,config);
   },
+  //获取消息
+  getMessage:function (param) {
+    config.params = param;
+    return axios.get('/messages',config);
+  },
+
+
   // 获取列表
   getList:function (param) {
     config.params = param;

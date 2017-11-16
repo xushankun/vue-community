@@ -10,7 +10,9 @@ const state = {
   // 用户登录状态
   loginStatus: JSON.parse(localStorage.getItem('loginStatus')) || false,
   // 用户数据
-  userData: {}
+  userData: {},
+  //消息
+  messages:{}
 };
 
 
@@ -40,6 +42,20 @@ const actions = {
     }).catch((err) => {
       console.log(err)
     });
+  },
+
+  //获取messages
+  getMessage({ commit }, token){
+    let params = {
+      accesstoken:token
+    };
+    console.log(token);
+    API.getMessage(params).then((res) => {
+      console.log(res);
+      commit(types.GET_USER_MESSAGES, res.data.data)
+    }).catch((err) => {
+      console.log(err)
+    })
   }
 };
 
@@ -47,7 +63,8 @@ const actions = {
 //过滤我们拿到的数据
 const getters = {
   loginStatus: state => state.loginStatus,
-  userData: state => state.userData
+  userData: state => state.userData,
+  messages: state => state.messages
 };
 
 
@@ -61,7 +78,10 @@ const mutations = {
   },
   [types.SET_USER_DATA](state, res) {
     state.userData = res
-  }
+  },
+  [types.GET_USER_MESSAGES](state, res) {
+    state.messages = res
+  },
 };
 export default {
   state,

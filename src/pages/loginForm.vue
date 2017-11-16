@@ -40,7 +40,12 @@
       }
     },
     methods: {
-      ...mapActions({ openLoginForm: 'openLoginForm',signIn: 'signIn' ,getUserData:'getUserData'}),
+      ...mapActions({
+        openLoginForm: 'openLoginForm',
+        signIn: 'signIn' ,
+        getUserData:'getUserData',
+        getMessage:'getMessage'
+      }),
       openForm (status) {
         this.openLoginForm(status);
       },
@@ -55,6 +60,7 @@
             $that.openForm(false);
             $that.signIn(res.data);
             $that.getUserData($that.userInfo.loginname);
+            $that.getMessage($that.accessT);
             this.showSnackbar('登录成功！');
           }).catch((err) => {
             console.log(err)
