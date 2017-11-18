@@ -37,7 +37,8 @@
         this.activeTab = this.$route.params[0];//初始化路由参数用于同步请求tab
       }
       this.getList();
-      this.vStatus.$on('startRefresh',function () { //接收list组件的下拉刷新事件并回调
+      this.vStatus.$on('pullUpRefresh',function () { //接收list组件的下拉刷新事件并回调
+        console.log('loadData');
         this.getList();
       }.bind(this))
     },

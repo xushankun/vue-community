@@ -51,7 +51,7 @@ export default {
       }
     }
   },
-  //keep-alive下我只能被执行一次
+  //keep-alive下created只能被执行一次
   created:function () {
     this.loadUserData();
   },

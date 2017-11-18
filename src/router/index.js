@@ -42,7 +42,7 @@ export default new Router({
       component: myV,
       meta: { tabAuth: true },
     },
-    { path:'/',redirect:'/home' },    //重定向
+    { path:'/',redirect:'/home/all' },    //重定向
   ]
   // scrollBehavior (to, from, savedPosition) {
   //   if (savedPosition) {

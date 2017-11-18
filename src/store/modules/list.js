@@ -6,7 +6,7 @@ import * as types from '../types'
 //state设置默认的初始状态
 const state = {
   // 列表
-  listData:{}
+  listData:[]
 };
 
 const actions = {

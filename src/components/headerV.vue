@@ -5,7 +5,7 @@
       <mu-icon-menu icon="more_vert" slot="right">
         <mu-menu-item title="设置"/>
         <mu-menu-item title="帮助"/>
-        <mu-menu-item @click="signOutF" title="退出"/>
+        <mu-menu-item v-if="isLogin" @click="signOutF" title="退出"/>
       </mu-icon-menu>
     </mu-appbar>
   </div>
@@ -30,6 +30,11 @@
       //打开loginForm
       openForm (status) {
         this.openLoginForm(status);
+      }
+    },
+    computed: {
+      isLogin () {
+        return this.$store.state.user.loginStatus
       }
     }
   }

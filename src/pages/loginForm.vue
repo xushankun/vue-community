@@ -63,7 +63,8 @@
             $that.getMessage($that.accessT);
             this.showSnackbar('登录成功！');
           }).catch((err) => {
-            console.log(err)
+            console.log(err);
+            this.showSnackbar('参数错误，请重新输入');
           });
         }else {
           this.showSnackbar('不能为空！');
