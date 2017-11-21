@@ -11,9 +11,15 @@ const state = {
 
 const actions = {
   //获取列表
-  getListData({ commit }, params) {
-    API.getList(params).then((res) => {
-      commit(types.GET_LIST, res.data.data)
+  getListData({ commit,state }, params) {
+    API.getList(params.$option).then((res) => {
+      let $res = [];
+      if(params.upRef){    //if上拉，则拼接数组
+        $res = state.listData.concat(res.data.data)
+      }else {
+        $res = res.data.data;   //否则init加载
+      }
+      commit(types.GET_LIST, $res)      //数组拼接最好在提交前操作
     }).catch((err) => {
       console.log(err)
     });

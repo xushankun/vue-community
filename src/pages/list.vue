@@ -1,6 +1,5 @@
 <template>
   <div class="listV">
-    <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="refresh"/>
     <mu-list>
       <div v-for="(item,index) in newListData">
         <mu-list-item :title="item.author.loginname" :afterText="item.tab" :describeLine="2" @click="details(index)">
@@ -13,7 +12,7 @@
         <mu-divider inset/>
       </div>
     </mu-list>
-    <mu-infinite-scroll :scroller="scroller" :loading="loading" @load="loadMore"/>
+    <mu-infinite-scroll :scroller="scroller" :loading="loading" :loadingText="loadingText" @load="loadMore"/>
   </div>
 </template>
 
@@ -22,27 +21,19 @@
     name: 'listV',
     data () {
       return {
-        refreshing: false,  //下
-        trigger: null,      //拉
-
         loading: false,
-        scroller: null
+        scroller: null,
+        loadingText:'正在加载'
       }
     },
     methods: {
-      refresh () {
-        this.refreshing = true;
-        this.vStatus.$emit('pullUpRefresh');//告诉homeNav组件，事件已发生
-        setTimeout(() => {
-          this.refreshing = false
-        }, 1000)
-      },
       loadMore () {
         this.loading = true;
         setTimeout(() => {
           console.log('刷新成功！');
-          this.loading = false
-        }, 2000)
+          this.vStatus.$emit('pullUpRefresh',true);//告诉homeNav组件，事件已发生
+          this.loading = false;
+        }, 1000);
       },
       details($id){
         console.log($id)
@@ -52,9 +43,7 @@
 
     },
     mounted () {
-      this.trigger = this.$el;
       this.scroller = this.$el
-
     },
     computed: {
       newListData () {

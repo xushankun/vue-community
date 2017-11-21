@@ -1,6 +1,6 @@
 <template>
   <div class="homeNav">
-    <mu-tabs :value="activeTab" class="tab">
+    <mu-tabs :value="activeTab" class="tab" @change="handleTabChange">
       <mu-tab value="all" to="/home/all" title="全部"/>
       <mu-tab value="good" to="/home/good" title="精华"/>
       <mu-tab value="weex" to="/home/weex" title="weex"/>
@@ -17,19 +17,25 @@
     name: 'homeNav',
     data () {
       return {
-        activeTab: 'all'
+        activeTab: 'all',
+        page:1,
+        limit:10
       }
     },
     methods: {
       ...mapActions({ getListData: 'getListData'}),
-      getList(){
+      getList(upRef){
         let $that = this;
-        let params = {
-          page:1,
+        let $option = {
+          page:$that.page,
           tab: $that.activeTab,
-          limit:10
+          limit:$that.limit
         };
-        this.getListData(params);
+        this.getListData({$option,upRef});
+      },
+      handleTabChange(val){
+//        this.page = 1;
+        console.log(val);
       }
     },
     created:function () {
@@ -37,9 +43,11 @@
         this.activeTab = this.$route.params[0];//初始化路由参数用于同步请求tab
       }
       this.getList();
-      this.vStatus.$on('pullUpRefresh',function () { //接收list组件的下拉刷新事件并回调
-        console.log('loadData');
-        this.getList();
+      this.vStatus.$on('pullUpRefresh',function (upRef) { //接收list组件的下拉刷新事件并回调
+//        if(upRef){
+//          this.page += 1;
+//          this.getList(upRef);
+//        }
       }.bind(this))
     },
     watch: {

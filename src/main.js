@@ -11,16 +11,13 @@ import 'muse-ui/dist/theme-teal.css' // 使用 light, dark, carbon, teal四种�
 import common from './lib/common'
 import API from './lib/API'
 import loading from './components/loading'
-import scroll from './components/scroll'
 import snackbar from './components/snackbar'
 
 Vue.use(MuseUI);
 Vue.use(common);
 Vue.use(loading);
-Vue.use(scroll);
 Vue.use(snackbar);
 //定义全局变量
-// Vue.prototype.com = commonJs;
 Vue.prototype.api = API;
 Vue.config.productionTip = false;
 
