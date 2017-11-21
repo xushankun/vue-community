@@ -104,7 +104,11 @@
           this.scroll.on('scrollEnd', () => {
             // 滚动到底部
             if (this.scroll.y <= (this.scroll.maxScrollY + 50)) {
-              this.$emit('scrollToEnd')
+              let scrollNum = {
+                currScroll:this.scroll.y,
+                ranageScroll:this.scroll.maxScrollY + 50
+              };
+              this.$emit('scrollToEnd',scrollNum)
             }
           })
         }
