@@ -23,7 +23,7 @@
       }
     },
     methods: {
-      ...mapActions({ getListData: 'getListData'}),
+      ...mapActions({ getListData: 'getListData',getUpRefesh: 'getUpRefesh'}),
       getList(upRef){
         let $that = this;
         let $option = {
@@ -34,7 +34,7 @@
         this.getListData({$option,upRef});
       },
       handleTabChange(val){
-//        this.page = 1;
+        this.page = 1;
         console.log(val);
       }
     },
@@ -44,10 +44,9 @@
       }
       this.getList();
       this.vStatus.$on('pullUpRefresh',function (upRef) { //接收list组件的下拉刷新事件并回调
-//        if(upRef){
-//          this.page += 1;
-//          this.getList(upRef);
-//        }
+        this.getUpRefesh(upRef);
+        this.page += 1;
+        this.getList(upRef);
       }.bind(this))
     },
     watch: {

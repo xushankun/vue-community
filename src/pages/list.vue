@@ -12,35 +12,34 @@
         <mu-divider inset/>
       </div>
     </mu-list>
-    <mu-infinite-scroll :scroller="scroller" :loading="loading" :loadingText="loadingText" @load="loadMore"/>
+    <mu-infinite-scroll :scroller="scroller" :loading="isUpRefesh" :loadingText="loadingText" @load="loadMore"/>
   </div>
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
   export default {
     name: 'listV',
     data () {
       return {
-        loading: false,
         scroller: null,
         loadingText:'正在加载'
       }
     },
     methods: {
+      ...mapActions({getUpRefesh: 'getUpRefesh'}),
       loadMore () {
-        this.loading = true;
-        setTimeout(() => {
-          console.log('刷新成功！');
-          this.vStatus.$emit('pullUpRefresh',true);//告诉homeNav组件，事件已发生
-          this.loading = false;
-        }, 1000);
+//        this.getUpRefesh(true);
+//        setTimeout(() => {
+//          console.log('开始刷新！');
+//          this.vStatus.$emit('pullUpRefresh',true);//告诉homeNav组件，事件已发生
+//        }, 2000);
       },
       details($id){
         console.log($id)
       }
     },
     created:function () {
-
     },
     mounted () {
       this.scroller = this.$el
@@ -48,6 +47,9 @@
     computed: {
       newListData () {
         return this.$store.state.list.listData;
+      },
+      isUpRefesh () {
+        return this.$store.state.list.isRefresh;
       }
     }
   }
