@@ -27,7 +27,7 @@
       }
     },
     methods: {
-      ...mapActions({getUpRefesh: 'getUpRefesh'}),
+      ...mapActions({getUpRefesh: 'getUpRefesh',getDetails: 'getDetails'}),
       loadMore () {
 //        this.getUpRefesh(true);
 //        setTimeout(() => {
@@ -35,8 +35,12 @@
 //          this.vStatus.$emit('pullUpRefresh',true);//告诉homeNav组件，事件已发生
 //        }, 2000);
       },
-      details($id){
-        console.log($id)
+      details(index){
+        let detailCont = {
+          itemCont:this.newListData[index],
+          open:true
+        };
+        this.getDetails(detailCont);
       }
     },
     created:function () {

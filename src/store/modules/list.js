@@ -7,7 +7,14 @@ import * as types from '../types'
 const state = {
   // 列表
   listData:[],
-  isRefresh: false
+  isRefresh: false,
+  listDetail:{
+    open: false,//详情页默认关闭
+    itemCont:{
+      title:null,
+      content:null
+    },
+  },
 };
 
 const actions = {
@@ -32,6 +39,10 @@ const actions = {
   //上拉加载
   getUpRefesh({commit},upRef){
     commit(types.GET_REFRESH_UP,upRef);  //提交上拉加载状态
+  },
+  //获取详情
+  getDetails({commit}, detailParams){
+    commit(types.GET_LIST_DETAIL,detailParams);  //提交上拉加载状态
   }
 };
 
@@ -39,7 +50,8 @@ const actions = {
 //过滤我们拿到的数据
 const getters = {
   listData: state => state.listData,
-  isRefresh: state => state.isRefresh
+  isRefresh: state => state.isRefresh,
+  listDetail: state => state.listDetail,
 };
 
 
@@ -49,8 +61,10 @@ const mutations = {
     state.listData = res
   },
   [types.GET_REFRESH_UP](state, res) {
-    console.log(res);
     state.isRefresh = res
+  },
+  [types.GET_LIST_DETAIL](state, res) {
+    state.listDetail = res
   }
 };
 export default {
