@@ -12,7 +12,7 @@ const state = {
   // 用户登录状态
   loginStatus: JSON.parse(localStorage.getItem('loginStatus')) || false,
   // 用户数据
-  userData: {},
+  userData: [],
   //消息
   messages:{}
 };
@@ -49,7 +49,6 @@ const actions = {
       console.log(err)
     });
   },
-
   //获取messages
   getMessage({ commit }, token){
     let params = {

@@ -6,6 +6,7 @@
         <mu-icon-button @click.native="detailParams.open = false" icon="close" slot="left"/>
         <mu-icon-menu icon="more_vert" slot="right">
           <mu-menu-item title="收藏" @click="collect"/>
+          <mu-menu-item title="取消收藏" @click="cancelCollect"/>
           <mu-menu-item title="我的收藏"/>
         </mu-icon-menu>
       </mu-appbar>
@@ -15,36 +16,88 @@
         <mu-back-top/>
       </div>
     </mu-drawer>
+    <!--弹出层-->
+    <mu-dialog :open="dialog" @close="close">
+      您还未登录，是否去登录？
+      <mu-flat-button slot="actions" @click="close" primary label="取消"/>
+      <mu-flat-button slot="actions" primary @click="openForm" label="确定"/>
+    </mu-dialog>
+    <!--toast-->
+    <snackbar :msgObj="msgObj"></snackbar>
   </div>
 </template>
 
 <script>
   import API from "../lib/API";
-
+  import { mapActions } from 'vuex'
   export default {
     data () {
       return {
+        dialog: false,  //init询问框
+        msgObj:{
+          tipsText: null,
+          isShow: false
+        },
         detailParams:{},
         detailCont:{}
       }
     },
     methods:{
+      ...mapActions({ openLoginForm: 'openLoginForm' }),
+      openForm () {
+        this.dialog = false;
+        this.openLoginForm(true);
+      },
+      close () {
+        this.dialog = false
+      },
       collect:function () {
         //检测是否登录
         if(this.isLogin){
-          console.log('OK!收藏成功');
-//          let params = {
-//            accesstoken:this.accessToken,
-//            topic_id:this.detailParams.id
-//          }
+          let params = {
+            accesstoken:this.accessToken,
+            topic_id:this.detailParams.id
+          };
+          API.collectTopic(params).then((res) => {
+             if(res.data.success){
+               this.showSnackbar('收藏成功！');
+             }
+          }).catch((err) => {
+            console.log(err);
+          })
         }else {
-          console.log('您还没有登录！，请先登录')
+          this.dialog = true;
+        }
+      },
+      cancelCollect:function () {
+        //检测是否登录
+        if(this.isLogin){
+          let params = {
+            accesstoken:this.accessToken,
+            topic_id:this.detailParams.id
+          };
+          API.cancelCollect(params).then((res) => {
+            if(res.data.success){
+              this.showSnackbar('已取消收藏！');
+            }
+          }).catch((err) => {
+            console.log(err);
+          })
+        }else {
+          this.dialog = true;
         }
       }
     },
     created:function () {
+      //判断当前是否收藏
+//      this.userData.forEach(function (item,index) {
+//        console.log(item);
+//        console.log(index);
+//      })
+      let $that = this;
       this.vStatus.$on('detailParams',function (params) {
         this.detailParams = params;
+
         API.getListDetails(params.id).then((res) => {
           this.detailCont = res.data.data;
         }).catch((err) => {
@@ -59,6 +112,9 @@
       accessToken(){
         return this.$store.state.user.accesstoken
       },
+      isCollect () {
+        return this.$store.state.user.userData.collect_topics
+      }
     },
   }
 </script>

@@ -15,5 +15,6 @@ export const SET_LAYOUT_FORM = 'SET_LAYOUT_FORM'  //设置表单布局状态
 //用户列表
 export const GET_LIST = 'GET_LIST'  //设置表单布局状态
 export const GET_REFRESH_UP = 'GET_REFRESH_STATUS';  //上拉加载状态
-export const GET_LIST_DETAIL = 'GET_LIST_DETAIL';  //上拉加载状态
+export const GET_LIST_DETAIL = 'GET_LIST_DETAIL';  //详情
+export const GET_TOPIC_ISCOLLECT = 'GET_TOPIC_ISCOLLECT';  //是否收藏
 

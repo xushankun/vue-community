@@ -15,6 +15,7 @@ const state = {
       content:null
     },
   },
+  isCollect:null
 };
 
 const actions = {
@@ -43,6 +44,12 @@ const actions = {
   //获取详情
   getDetails({commit}, detailParams){
     commit(types.GET_LIST_DETAIL,detailParams);  //提交上拉加载状态
+  },
+  //是否收藏
+  isCollect({commit }, $id){
+    console.log($id);
+    // console.log(state.userData);
+    commit(types.GET_TOPIC_ISCOLLECT,true)
   }
 };
 
@@ -52,6 +59,7 @@ const getters = {
   listData: state => state.listData,
   isRefresh: state => state.isRefresh,
   listDetail: state => state.listDetail,
+  isCollect: state => state.isCollect
 };
 
 
@@ -65,6 +73,9 @@ const mutations = {
   },
   [types.GET_LIST_DETAIL](state, res) {
     state.listDetail = res
+  },
+  [types.GET_TOPIC_ISCOLLECT](state, res) {
+    state.isCollect = res
   }
 };
 export default {

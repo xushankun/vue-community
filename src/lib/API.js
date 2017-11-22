@@ -35,6 +35,11 @@ export default {
   //收藏主题
   collectTopic:function (param) {
     config.data = param;
-    return axios.post('/accesstoken',{},config);
+    return axios.post('/topic/collect',{},config);
+  },
+  //取消收藏
+  cancelCollect:function (param) {
+    config.data = param;
+    return axios.post('/topic/de_collect ',{},config);
   }
 }
