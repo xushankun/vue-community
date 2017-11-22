@@ -36,7 +36,7 @@
           tipsText: null,
           isShow: false
         },
-        accessT: '1d941586-8a95-4f45-8b8b-44507ab3977b' //登录需要的Access Token
+        accessT: '' //登录需要的Access Token
       }
     },
     methods: {
@@ -44,23 +44,25 @@
         openLoginForm: 'openLoginForm',
         signIn: 'signIn' ,
         getUserData:'getUserData',
-        getMessage:'getMessage'
+        getMessage:'getMessage',
+        accesstoken:'accesstoken'
       }),
       openForm (status) {
         this.openLoginForm(status);
       },
       loginF:function () {
         //登录请求
+        this.accesstoken(this.accessT);
         let $that = this;
         if($that.accessT){
           let params = {
             accesstoken: $that.accessT
           };
           this.api.signInReq(params).then((res) => {
-            $that.openForm(false);
-            $that.signIn(res.data);
-            $that.getUserData($that.userInfo.loginname);
-            $that.getMessage($that.accessT);
+            $that.openForm(false);    //登录成功后关闭表单
+            $that.signIn(res.data);   //存储到vuex
+            $that.getUserData(res.data.loginname);  //用户详情
+            $that.getMessage($that.accessT);    //消息
             this.showSnackbar('登录成功！');
           }).catch((err) => {
             console.log(err);
@@ -72,11 +74,15 @@
       }
     },
     created:function () {
+      this.accessT = this.accessToken;
       this.vStatus.$on('signOut',function ($val) {
         this.showSnackbar($val);
       }.bind(this))
     },
     computed: {
+      accessToken(){
+        return this.$store.state.user.accesstoken
+      },
       leftPopup () {
         return this.$store.state.layout.leftPopup
       },

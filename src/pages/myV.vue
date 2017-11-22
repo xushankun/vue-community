@@ -43,9 +43,8 @@ export default {
       this.openLoginForm(status);
     },
     loadUserData:function () {
-      let $that = this;
       if(this.isLogin){
-        this.getUserData($that.userInfo.loginname);
+        this.getUserData(this.userInfo.loginname);
       }else {
         console.log('您还未登录');
       }

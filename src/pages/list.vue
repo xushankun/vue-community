@@ -2,7 +2,7 @@
   <div class="listV">
     <mu-list>
       <div v-for="(item,index) in newListData">
-        <mu-list-item :title="item.author.loginname" :afterText="item.tab" :describeLine="2" @click="details(index)">
+        <mu-list-item :title="item.author.loginname" :afterText="item.tab" :describeLine="2" @click="details(item.id,item.title)">
           <mu-avatar :src="item.author.avatar_url" slot="leftAvatar"/>
           <span slot="describe">
           <span style="color: rgba(0, 0, 0, .87)">{{item.title}}</span>
@@ -35,12 +35,15 @@
 //          this.vStatus.$emit('pullUpRefresh',true);//告诉homeNav组件，事件已发生
 //        }, 2000);
       },
-      details(index){
-        let detailCont = {
-          itemCont:this.newListData[index],
+      details($id,$title){
+        console.log($id);
+        let detailParams = {
+          id:$id,
+          title:$title,
           open:true
         };
-        this.getDetails(detailCont);
+        this.vStatus.$emit('detailParams',detailParams)
+//        this.getDetails(detailCont);
       }
     },
     created:function () {

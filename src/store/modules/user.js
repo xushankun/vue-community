@@ -5,6 +5,8 @@ import * as types from '../types'
 
 //state设置默认的初始状态
 const state = {
+  //默认登录token
+  accesstoken:'1d941586-8a95-4f45-8b8b-44507ab3977b',
   // 用户登录信息
   userInfo: JSON.parse(localStorage.getItem('userInfo')) || {},
   // 用户登录状态
@@ -24,6 +26,10 @@ const actions = {
     localStorage.setItem('loginStatus',true);
     commit(types.SET_USER_INFO, userInfo);
     commit(types.SET_LOGIN_STATUS, true);
+  },
+  // 存储accesstoken
+  accesstoken({commit},token){
+    commit(types.GET_LOGIN_TOKEN,token);//提交accessToken
   },
   // 退出登录
   signOut({commit}){
@@ -49,10 +55,8 @@ const actions = {
     let params = {
       accesstoken:token
     };
-    console.log(token);
     API.getMessage(params).then((res) => {
-      console.log(res);
-      commit(types.GET_USER_MESSAGES, res.data.data)
+      commit(types.GET_USER_MESSAGES, res.data.data);
     }).catch((err) => {
       console.log(err)
     })
@@ -64,7 +68,8 @@ const actions = {
 const getters = {
   loginStatus: state => state.loginStatus,
   userData: state => state.userData,
-  messages: state => state.messages
+  messages: state => state.messages,
+  accesstoken: state => state.accesstoken
 };
 
 
@@ -82,6 +87,9 @@ const mutations = {
   [types.GET_USER_MESSAGES](state, res) {
     state.messages = res
   },
+  [types.GET_LOGIN_TOKEN](state, res) {
+    state.accesstoken = res
+  }
 };
 export default {
   state,

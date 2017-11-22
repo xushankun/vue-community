@@ -1,16 +1,16 @@
 <template>
   <div class="detail-wrap">
     <!--详情-->
-    <mu-drawer right :open="detailCont.open">
-      <mu-appbar :title="detailCont.itemCont.title" class="detail-bar">
-        <mu-icon-button @click.native="detailCont.open = false" icon="close" slot="left"/>
+    <mu-drawer right :open="detailParams.open">
+      <mu-appbar :title="detailParams.title" class="detail-bar">
+        <mu-icon-button @click.native="detailParams.open = false" icon="close" slot="left"/>
         <mu-icon-menu icon="more_vert" slot="right">
-          <mu-menu-item title="收藏"/>
+          <mu-menu-item title="收藏" @click="collect"/>
           <mu-menu-item title="我的收藏"/>
         </mu-icon-menu>
       </mu-appbar>
       <div class="detail-content">
-        <mu-list-item v-html="detailCont.itemCont.content"/>
+        <mu-list-item v-html="detailCont.content"/>
         <!--返回顶部-->
         <mu-back-top/>
       </div>
@@ -19,13 +19,47 @@
 </template>
 
 <script>
+  import API from "../lib/API";
+
   export default {
-    props:['detailCont'],
     data () {
       return {
-
+        detailParams:{},
+        detailCont:{}
       }
-    }
+    },
+    methods:{
+      collect:function () {
+        //检测是否登录
+        if(this.isLogin){
+          console.log('OK!收藏成功');
+//          let params = {
+//            accesstoken:this.accessToken,
+//            topic_id:this.detailParams.id
+//          }
+        }else {
+          console.log('您还没有登录！，请先登录')
+        }
+      }
+    },
+    created:function () {
+      this.vStatus.$on('detailParams',function (params) {
+        this.detailParams = params;
+        API.getListDetails(params.id).then((res) => {
+          this.detailCont = res.data.data;
+        }).catch((err) => {
+          console.log(err)
+        });
+      }.bind(this))
+    },
+    computed: {
+      isLogin () {
+        return this.$store.state.user.loginStatus
+      },
+      accessToken(){
+        return this.$store.state.user.accesstoken
+      },
+    },
   }
 </script>
 <style>

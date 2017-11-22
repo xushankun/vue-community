@@ -27,4 +27,14 @@ export default {
     config.params = param;
     return axios.get('/topics',config);
   },
+  // 获取主题详情【item-details】
+  getListDetails:function (param) {
+    config.params = param;
+    return axios.get('/topic/'+param,config);
+  },
+  //收藏主题
+  collectTopic:function (param) {
+    config.data = param;
+    return axios.post('/accesstoken',{},config);
+  }
 }
