@@ -4,7 +4,8 @@
     <contentV></contentV>
     <footerV></footerV>
     <loginForm></loginForm>
-    <!--<router-view name="loginForm"></router-view>-->
+    <!--详情-->
+    <listDetail :detailCont="detailCont"></listDetail>
   </div>
 </template>
 
@@ -13,6 +14,7 @@
   import contentV from './components/contentV.vue'
   import footerV from './components/footerV.vue'
   import loginForm from './pages/loginForm.vue'
+  import listDetail from './pages/detailV.vue'
 
 export default {
   name: 'app',
@@ -21,7 +23,12 @@ export default {
 
     }
   },
-  components:{ headerV,contentV,footerV,loginForm },
+  components:{ headerV,contentV,footerV,loginForm,listDetail },
+  computed: {
+    detailCont(){
+      return this.$store.state.list.listDetail
+    }
+  }
 }
 </script>
 
@@ -33,6 +40,12 @@ export default {
   top: 0;
   left: 0;
   bottom: 0;
+}
+/*详情*/
+.detail-wrap , .detail-wrap .mu-drawer{
+  width: 100%;
+  overflow: hidden;
+  z-index: 9999;
 }
 .contentV{
   width: 100%;

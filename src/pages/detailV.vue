@@ -109,12 +109,6 @@
   }
 </script>
 <style>
-  /*详情*/
-  .detail-wrap .mu-paper{
-    width: 100%;
-    overflow: hidden;
-    z-index: 9999;
-  }
   .detail-bar{
     position: absolute;
     top: 0;

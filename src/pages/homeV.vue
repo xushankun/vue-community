@@ -2,15 +2,12 @@
   <div class="homeV">
     <homeNav></homeNav>
     <listV></listV>
-    <!--详情-->
-    <listDetail :detailCont="detailCont"></listDetail>
   </div>
 </template>
 
 <script>
   import homeNav from './homeNav.vue'
   import listV from './list.vue'
-  import listDetail from '../pages/detailV.vue'
 
   export default {
     name: 'homeV',
@@ -18,12 +15,7 @@
       return {
       }
     },
-    components:{ homeNav , listV ,listDetail},
-    computed: {
-      detailCont(){
-        return this.$store.state.list.listDetail
-      }
-    }
+    components:{ homeNav , listV }
   }
 </script>
 
