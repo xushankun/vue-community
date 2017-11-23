@@ -5,31 +5,28 @@
     <footerV></footerV>
     <loginForm></loginForm>
     <!--详情-->
-    <listDetail :detailCont="detailCont"></listDetail>
+    <listDetail :detailCont="listDetail"></listDetail>
   </div>
 </template>
 
 <script>
+  import {  mapGetters } from 'vuex'
   import headerV from './components/headerV.vue'
   import contentV from './components/contentV.vue'
   import footerV from './components/footerV.vue'
   import loginForm from './pages/loginForm.vue'
   import listDetail from './pages/detailV.vue'
-
-export default {
-  name: 'app',
-  data:function () {
-    return {
-
-    }
-  },
-  components:{ headerV,contentV,footerV,loginForm,listDetail },
-  computed: {
-    detailCont(){
-      return this.$store.state.list.listDetail
+  export default {
+    name: 'app',
+    data:function () {
+      return {
+      }
+    },
+    components:{ headerV,contentV,footerV,loginForm,listDetail },
+    computed: {
+      ...mapGetters(['listDetail'])
     }
   }
-}
 </script>
 
 <style>

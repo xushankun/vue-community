@@ -10,7 +10,6 @@
     </mu-paper>
   </div>
 </template>
-
 <script>
   export default {
     name: 'footerV',
@@ -34,7 +33,5 @@
     }
   }
 </script>
-
 <style>
-
 </style>
