@@ -40,17 +40,17 @@
       }
     },
     methods: {
-      ...mapActions({
-        openLoginForm: 'openLoginForm',
-        signIn: 'signIn' ,
-        getUserData:'getUserData',
-        getMessage:'getMessage',
-        accesstoken:'accesstoken'
-      }),
+      ...mapActions([
+        'openLoginForm',
+        'signIn' ,
+        'getUserData',
+        'getMessage',
+        'accesstoken'
+      ]),
       openForm (status) {
         this.openLoginForm(status);
       },
-      loginF:function () {
+      loginF () {
         //登录请求
         this.accesstoken(this.accessT);
         let $that = this;
@@ -73,7 +73,7 @@
         }
       }
     },
-    created:function () {
+    created () {
       this.accessT = this.accessToken;
       this.vStatus.$on('signOut',function ($val) {
         this.showSnackbar($val);

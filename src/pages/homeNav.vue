@@ -23,7 +23,7 @@
       }
     },
     methods: {
-      ...mapActions({ getListData: 'getListData',getUpRefesh: 'getUpRefesh'}),
+      ...mapActions(['getListData', 'getUpRefesh']),
       getList(upRef){
         let $that = this;
         let $option = {
@@ -38,7 +38,7 @@
         console.log(val);
       }
     },
-    created:function () {
+    created () {
       if (this.$route.matched.some(record => record.meta.listAuth)) {
         this.activeTab = this.$route.params[0];//初始化路由参数用于同步请求tab
       }

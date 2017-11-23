@@ -27,7 +27,7 @@
       }
     },
     methods: {
-      ...mapActions({getUpRefesh: 'getUpRefesh',getDetails: 'getDetails'}),
+      ...mapActions(['getUpRefesh','getDetails']),
       loadMore () {
 //        this.getUpRefesh(true);
 //        setTimeout(() => {
@@ -46,7 +46,7 @@
 //        this.getDetails(detailCont);
       }
     },
-    created:function () {
+    created () {
     },
     mounted () {
       this.scroller = this.$el

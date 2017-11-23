@@ -51,12 +51,12 @@
       }
     },
     methods:{
-      ...mapActions({ openLoginForm: 'openLoginForm' , getMessage:'getMessage'}),
+      ...mapActions(['openLoginForm' ,'getMessage']),
       openForm (status) {
         this.openLoginForm(status);
       },
     },
-    created:function () {
+    created () {
       if(this.isLogin){
         this.getMessage('1d941586-8a95-4f45-8b8b-44507ab3977b');
       }

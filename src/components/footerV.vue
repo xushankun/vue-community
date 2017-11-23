@@ -20,7 +20,7 @@
         bottomNavColor: ''
       }
     },
-    created:function () {
+    created () {
       if (this.$route.matched.some(record => record.meta.tabAuth)) {
         this.bottomNav = this.$route.matched[0].name;
       }

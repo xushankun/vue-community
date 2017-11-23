@@ -21,7 +21,7 @@
       }
     },
     methods: {
-      ...mapActions({ signOut: 'signOut' ,openLoginForm: 'openLoginForm'}),
+      ...mapActions(['signOut' , 'openLoginForm']),
       //退出
       signOutF:function () {
         this.signOut();

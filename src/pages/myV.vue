@@ -38,11 +38,11 @@ export default {
     }
   },
   methods:{
-    ...mapActions({ openLoginForm: 'openLoginForm' ,getUserData:'getUserData'}),
+    ...mapActions(['openLoginForm' ,'getUserData']),
     openForm (status) {
       this.openLoginForm(status);
     },
-    loadUserData:function () {
+    loadUserData () {
       if(this.isLogin){
         this.getUserData(this.userInfo.loginname);
       }else {
@@ -51,7 +51,7 @@ export default {
     }
   },
   //keep-alive下created只能被执行一次
-  created:function () {
+  created () {
     this.loadUserData();
   },
   computed: {

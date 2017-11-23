@@ -43,7 +43,7 @@
       }
     },
     methods:{
-      ...mapActions({ openLoginForm: 'openLoginForm' }),
+      ...mapActions(['openLoginForm' ,'setIsCollect']),
       openForm () {
         this.dialog = false;
         this.openLoginForm(true);
@@ -88,16 +88,9 @@
         }
       }
     },
-    created:function () {
-      //判断当前是否收藏
-//      this.userData.forEach(function (item,index) {
-//        console.log(item);
-//        console.log(index);
-//      })
-      let $that = this;
+    created () {
       this.vStatus.$on('detailParams',function (params) {
         this.detailParams = params;
-
         API.getListDetails(params.id).then((res) => {
           this.detailCont = res.data.data;
         }).catch((err) => {
@@ -111,9 +104,6 @@
       },
       accessToken(){
         return this.$store.state.user.accesstoken
-      },
-      isCollect () {
-        return this.$store.state.user.userData.collect_topics
       }
     },
   }
