@@ -1,7 +1,7 @@
 <template>
   <div>
     <mu-popup position="left" popupClass="demo-popup-left" :open="leftPopup" @close="openForm(!leftPopup)">
-      <div class="show-form" v-if="isLogin">
+      <div class="show-form" v-if="loginStatus">
         <mu-card>
           <mu-card-header :title="userInfo.loginname" subTitle="sub title">
             <mu-avatar :src="userInfo.avatar_url" slot="avatar"/>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
   export default {
     data () {
       return {
@@ -45,14 +45,14 @@
         'signIn' ,
         'getUserData',
         'getMessage',
-        'accesstoken'
+        'accesstokenF'
       ]),
       openForm (status) {
         this.openLoginForm(status);
       },
       loginF () {
         //登录请求
-        this.accesstoken(this.accessT);
+        this.accesstokenF(this.accessT);
         let $that = this;
         if($that.accessT){
           let params = {
@@ -74,24 +74,13 @@
       }
     },
     created () {
-      this.accessT = this.accessToken;
+      this.accessT = this.accesstoken;
       this.vStatus.$on('signOut',function ($val) {
         this.showSnackbar($val);
       }.bind(this))
     },
     computed: {
-      accessToken(){
-        return this.$store.state.user.accesstoken
-      },
-      leftPopup () {
-        return this.$store.state.layout.leftPopup
-      },
-      isLogin () {
-        return this.$store.state.user.loginStatus
-      },
-      userInfo () {
-        return this.$store.state.user.userInfo
-      }
+      ...mapGetters(['accesstoken','leftPopup','loginStatus','userInfo'])
     },
   }
 </script>

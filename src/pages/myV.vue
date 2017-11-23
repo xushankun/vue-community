@@ -1,6 +1,6 @@
 <template>
   <div class="myV">
-    <div v-if="isLogin">
+    <div v-if="loginStatus">
       <mu-list>
         <mu-sub-header>主页</mu-sub-header>
         <mu-list-item :title="userData.loginname" :describeText="userData.score+'积分'">
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'myV',
   data () {
@@ -43,7 +43,7 @@ export default {
       this.openLoginForm(status);
     },
     loadUserData () {
-      if(this.isLogin){
+      if(this.loginStatus){
         this.getUserData(this.userInfo.loginname);
       }else {
         console.log('您还未登录');
@@ -55,15 +55,7 @@ export default {
     this.loadUserData();
   },
   computed: {
-    isLogin () {
-      return this.$store.state.user.loginStatus
-    },
-    userInfo () {
-      return this.$store.state.user.userInfo
-    },
-    userData () {
-      return this.$store.state.user.userData
-    }
+    ...mapGetters(['loginStatus','userInfo','userData'])
   },
 }
 </script>

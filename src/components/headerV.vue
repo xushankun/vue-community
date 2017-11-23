@@ -5,14 +5,13 @@
       <mu-icon-menu icon="more_vert" slot="right">
         <mu-menu-item title="设置"/>
         <mu-menu-item title="帮助"/>
-        <mu-menu-item v-if="isLogin" @click="signOutF" title="退出"/>
+        <mu-menu-item v-if="loginStatus" @click="signOutF" title="退出"/>
       </mu-icon-menu>
     </mu-appbar>
   </div>
 </template>
-
 <script>
-  import { mapActions } from 'vuex'
+  import {  mapGetters, mapActions } from 'vuex'
   export default {
     name: 'HelloWorld',
     data () {
@@ -22,7 +21,6 @@
     },
     methods: {
       ...mapActions(['signOut' , 'openLoginForm']),
-      //退出
       signOutF:function () {
         this.signOut();
         this.vStatus.$emit('signOut','已退出');
@@ -33,14 +31,10 @@
       }
     },
     computed: {
-      isLogin () {
-        return this.$store.state.user.loginStatus
-      }
+      ...mapGetters(['loginStatus'])
     }
   }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 
 </style>

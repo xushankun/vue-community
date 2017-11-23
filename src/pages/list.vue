@@ -1,7 +1,7 @@
 <template>
   <div class="listV">
     <mu-list>
-      <div v-for="(item,index) in newListData">
+      <div v-for="(item,index) in listData">
         <mu-list-item :title="item.author.loginname" :afterText="item.tab" :describeLine="2" @click="details(item.id,item.title)">
           <mu-avatar :src="item.author.avatar_url" slot="leftAvatar"/>
           <span slot="describe">
@@ -12,12 +12,12 @@
         <mu-divider inset/>
       </div>
     </mu-list>
-    <mu-infinite-scroll :scroller="scroller" :loading="isUpRefesh" :loadingText="loadingText" @load="loadMore"/>
+    <mu-infinite-scroll :scroller="scroller" :loading="isRefresh" :loadingText="loadingText" @load="loadMore"/>
   </div>
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
   export default {
     name: 'listV',
     data () {
@@ -52,17 +52,11 @@
       this.scroller = this.$el
     },
     computed: {
-      newListData () {
-        return this.$store.state.list.listData;
-      },
-      isUpRefesh () {
-        return this.$store.state.list.isRefresh;
-      }
+      ...mapGetters(['listData','isRefresh'])
     }
   }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
   .listV{
     height: calc(100% - 48px);

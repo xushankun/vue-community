@@ -1,9 +1,9 @@
 <template>
   <div class="messageV">
-    <div v-if="isLogin">
+    <div v-if="loginStatus">
       <!--新消息【未读】-->
       <mu-sub-header>新消息</mu-sub-header>
-        <mu-list-item v-for="(item,index) in currMessages.hasnot_read_messages" :key="index" :title="item.topic.title">
+        <mu-list-item v-for="(item,index) in messages.hasnot_read_messages" :key="index" :title="item.topic.title">
           <mu-avatar :src="item.author.avatar_url" slot="leftAvatar"/>
           <span slot="describe">
         <span style="margin-top: 20px;color: rgba(0, 0, 0, .87)">{{item.author.loginname}} -</span> {{item.reply.content}}
@@ -20,7 +20,7 @@
       <mu-divider inset/>
         <!--已读消息-->
       <mu-sub-header>已读消息</mu-sub-header>
-        <mu-list-item v-for="(item,index) in currMessages.has_read_messages" :key="index" :title="item.topic.title">
+        <mu-list-item v-for="(item,index) in messages.has_read_messages" :key="index" :title="item.topic.title">
           <mu-avatar :src="item.author.avatar_url" slot="leftAvatar"/>
           <span slot="describe">
         <span style="margin-top: 20px;color: rgba(0, 0, 0, .87)">{{item.author.loginname}} -</span> {{item.reply.content}}
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
   export default {
     name: 'messageV',
     data () {
@@ -57,17 +57,12 @@
       },
     },
     created () {
-      if(this.isLogin){
+      if(this.loginStatus){
         this.getMessage('1d941586-8a95-4f45-8b8b-44507ab3977b');
       }
     },
     computed: {
-      isLogin () {
-        return this.$store.state.user.loginStatus
-      },
-      currMessages(){
-        return this.$store.state.user.messages
-      }
+      ...mapGetters(['loginStatus','messages'])
     }
   }
 </script>

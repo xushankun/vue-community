@@ -28,7 +28,7 @@ const actions = {
     commit(types.SET_LOGIN_STATUS, true);
   },
   // 存储accesstoken
-  accesstoken({commit},token){
+  accesstokenF({commit},token){
     commit(types.GET_LOGIN_TOKEN,token);//提交accessToken
   },
   // 退出登录
@@ -66,6 +66,7 @@ const actions = {
 //过滤我们拿到的数据
 const getters = {
   loginStatus: state => state.loginStatus,
+  userInfo: state => state.userInfo,
   userData: state => state.userData,
   messages: state => state.messages,
   accesstoken: state => state.accesstoken

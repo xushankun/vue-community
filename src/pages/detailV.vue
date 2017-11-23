@@ -28,8 +28,7 @@
 </template>
 
 <script>
-  import API from "../lib/API";
-  import { mapActions } from 'vuex'
+  import {  mapGetters, mapActions } from 'vuex'
   export default {
     data () {
       return {
@@ -53,12 +52,12 @@
       },
       collect:function () {
         //检测是否登录
-        if(this.isLogin){
+        if(this.loginStatus){
           let params = {
-            accesstoken:this.accessToken,
+            accesstoken:this.accesstoken,
             topic_id:this.detailParams.id
           };
-          API.collectTopic(params).then((res) => {
+          this.api.collectTopic(params).then((res) => {
              if(res.data.success){
                this.showSnackbar('收藏成功！');
              }
@@ -71,12 +70,12 @@
       },
       cancelCollect:function () {
         //检测是否登录
-        if(this.isLogin){
+        if(this.loginStatus){
           let params = {
-            accesstoken:this.accessToken,
+            accesstoken:this.accesstoken,
             topic_id:this.detailParams.id
           };
-          API.cancelCollect(params).then((res) => {
+          this.api.cancelCollect(params).then((res) => {
             if(res.data.success){
               this.showSnackbar('已取消收藏！');
             }
@@ -91,7 +90,7 @@
     created () {
       this.vStatus.$on('detailParams',function (params) {
         this.detailParams = params;
-        API.getListDetails(params.id).then((res) => {
+        this.api.getListDetails(params.id).then((res) => {
           this.detailCont = res.data.data;
         }).catch((err) => {
           console.log(err)
@@ -99,12 +98,7 @@
       }.bind(this))
     },
     computed: {
-      isLogin () {
-        return this.$store.state.user.loginStatus
-      },
-      accessToken(){
-        return this.$store.state.user.accesstoken
-      }
+      ...mapGetters(['loginStatus','accesstoken'])
     },
   }
 </script>

@@ -1,11 +1,12 @@
 <template>
     <div class="release-V">
       <div>{{msg}}</div>
-      <div>{{isLogin}}</div>
+      <div>{{loginStatus}}</div>
     </div>
 </template>
 
 <script>
+  import {  mapGetters, mapActions } from 'vuex'
   export default {
     name: 'release-V',
     data () {
@@ -17,9 +18,7 @@
 
     },
     computed: {
-      isLogin () {
-        return this.$store.state.user.loginStatus
-      }
+      ...mapGetters(['loginStatus'])
     },
   }
 </script>

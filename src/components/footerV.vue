@@ -25,9 +25,6 @@
         this.bottomNav = this.$route.matched[0].name;
       }
     },
-    methods: {
-
-    },
     watch:{
       '$route' (to, from) {
         if (to.matched.some(record => record.meta.tabAuth)) {
