@@ -23,9 +23,7 @@
         </mu-list-item>
       </mu-list>
     </div>
-    <div class="sign-block" v-else>
-      <mu-raised-button label="Go Sign In ?" @click="openForm(true)"/>
-    </div>
+    <openform v-else></openform>
   </div>
 </template>
 
@@ -38,10 +36,7 @@ export default {
     }
   },
   methods:{
-    ...mapActions(['openLoginForm' ,'getUserData']),
-    openForm (status) {
-      this.openLoginForm(status);
-    },
+    ...mapActions([ ,'getUserData']),
     loadUserData () {
       if(this.loginStatus){
         this.getUserData(this.userInfo.loginname);
@@ -63,8 +58,5 @@ export default {
 <style>
   .myV{
     position: relative;
-  }
-  .sign-block{
-    margin: 15px 0 0 15px;
   }
 </style>

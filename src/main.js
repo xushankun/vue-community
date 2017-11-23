@@ -12,11 +12,13 @@ import common from './lib/common'
 import API from './lib/API'
 import loading from './components/loading'
 import snackbar from './components/snackbar'
+import openform from './components/openform'
 
 Vue.use(MuseUI);
 Vue.use(common);
 Vue.use(loading);
 Vue.use(snackbar);
+Vue.use(openform);
 //定义全局变量
 Vue.prototype.api = API;
 Vue.config.productionTip = false;

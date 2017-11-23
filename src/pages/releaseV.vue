@@ -1,7 +1,10 @@
 <template>
     <div class="release-V">
-      <div>{{msg}}</div>
-      <div>{{loginStatus}}</div>
+      <div v-if="loginStatus">
+        <div>{{msg}}</div>
+        <div>{{loginStatus}}</div>
+      </div>
+      <openform v-else></openform>
     </div>
 </template>
 

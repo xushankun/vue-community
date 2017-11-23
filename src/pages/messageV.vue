@@ -36,9 +36,7 @@
         </mu-list-item>
       <mu-divider inset/>
     </div>
-    <div class="sign-block" v-else>
-      <mu-raised-button label="Go Sign In ?" @click="openForm(true)"/>
-    </div>
+    <openform v-else></openform>
   </div>
 </template>
 
@@ -51,10 +49,7 @@
       }
     },
     methods:{
-      ...mapActions(['openLoginForm' ,'getMessage']),
-      openForm (status) {
-        this.openLoginForm(status);
-      },
+      ...mapActions(['getMessage'])
     },
     created () {
       if(this.loginStatus){
@@ -68,9 +63,6 @@
 </script>
 
 <style>
-  .sign-block{
-    margin: 15px 0 0 15px;
-  }
   .messageV .mu-item-text{
     margin-top: 14px;
   }

@@ -43,10 +43,7 @@
           open:true
         };
         this.vStatus.$emit('detailParams',detailParams)
-//        this.getDetails(detailCont);
       }
-    },
-    created () {
     },
     mounted () {
       this.scroller = this.$el
