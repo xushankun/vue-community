@@ -14,8 +14,9 @@
   import headerV from './components/headerV.vue'
   import contentV from './components/contentV.vue'
   import footerV from './components/footerV.vue'
-  import loginForm from './pages/loginForm.vue'
-  import listDetail from './pages/detailV.vue'
+  const loginForm = r => require.ensure([], () => r(require('./pages/loginForm.vue')));
+  const listDetail = r => require.ensure([], () => r(require('./pages/detailV.vue')));
+
   export default {
     name: 'app',
     data:function () {

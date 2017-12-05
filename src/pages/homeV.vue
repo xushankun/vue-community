@@ -6,8 +6,9 @@
 </template>
 
 <script>
-  import homeNav from './homeNav.vue'
+  import homeNav from './homeNav.vue';
   import listV from './list.vue'
+
   export default {
     name: 'homeV',
     data () {

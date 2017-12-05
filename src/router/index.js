@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import homeV from '../pages/homeV.vue'
-import releaseV from '../pages/releaseV.vue'
-import messageV from '../pages/messageV.vue'
-import myV from '../pages/myV.vue'
+
+import homeV from '../pages/homeV.vue';
 import listV from '../pages/list.vue'
+const releaseV = r => require.ensure([], () => r(require('../pages/releaseV.vue')))
+const messageV = r => require.ensure([], () => r(require('../pages/messageV.vue')))
+const myV = r => require.ensure([], () => r(require('../pages/myV.vue')))
 
 Vue.use(Router);
-
 
 
 export default new Router({
